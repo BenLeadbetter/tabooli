@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <type_traits>
 #include <variant>
 #include <vector>
 
@@ -12,9 +11,9 @@ template<typename D> struct unite;
 template<typename D> struct negate;
 
 template<typename D> 
-struct  combinator : public std::variant<intersect<D>, unite<D>, negate<D>, D>
+struct  combinator : public std::variant<std::monostate, intersect<D>, unite<D>, negate<D>, D>
 {
-    using std::variant<intersect<D>, unite<D>, negate<D>, D>::variant;
+    using std::variant<std::monostate, intersect<D>, unite<D>, negate<D>, D>::variant;
 };
 
 template<typename D>

@@ -93,7 +93,8 @@ std::ostream& operator<<(std::ostream& os, const combinator<D>& l)
         [&os](const D& d) { os << d; },
         [&os](const intersect<D>& a) { os << a; },
         [&os](const unite<D>& o) { os << o; },
-        [&os](const negate<D>& o) { os << o; }
+        [&os](const negate<D>& o) { os << o; },
+        [](auto){}
     );
     std::visit(visitor, l);
     return os;

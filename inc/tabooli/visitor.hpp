@@ -48,7 +48,8 @@ void visit(V&& v, const combinator<D>& c)
             v.push_negate();
             tabooli::visit(v, *n.data);
             v.pop_negate();
-        }
+        },
+        [](auto){}
     );
     std::visit(overload, c);
 }
