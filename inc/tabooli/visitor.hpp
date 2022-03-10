@@ -14,6 +14,8 @@ struct visitor
     virtual void pop_intersect() {}
     virtual void push_unite() {}
     virtual void pop_unite() {}
+    virtual void push_negate() {}
+    virtual void pop_negate() {}
 };
 
 template<typename V, typename D>
@@ -28,7 +30,7 @@ void visit(V&& v, const combinator<D>& c)
             for (const auto& operand : operands) 
             {
                 const auto& c = combinator{operand};
-                visit(v, operand);
+                tabooli::visit(v, operand);
             }
             v.pop_unite();
         },
@@ -37,9 +39,15 @@ void visit(V&& v, const combinator<D>& c)
             for (const auto& operand : operands) 
             {
                 const auto& c = combinator{operand};
-                visit(v, operand);
+                tabooli::visit(v, operand);
             }
             v.pop_intersect();
+        },
+        [&v](const negate<D>& n)
+        {
+            v.push_negate();
+            tabooli::visit(v, *n.data);
+            v.pop_negate();
         }
     );
     std::visit(overload, c);

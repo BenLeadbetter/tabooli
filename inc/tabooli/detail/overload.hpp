@@ -2,8 +2,8 @@
 
 namespace tabooli::detail {
 
-// pinthed from
-//.hppttps://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
+// pinched from
+// https://arne-mertz.de/2018/05/overload-build-a-variant-visitor-on-the-fly/
 
 template <class ...Fs>
 struct overload : Fs... {

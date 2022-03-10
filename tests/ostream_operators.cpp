@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-TABOOLI_CUSTOM_PREFIX(tabooli::combinator<std::string>,"and","or"," ");
+TABOOLI_CUSTOM_PREFIX(tabooli::combinator<std::string>,"and","or","not"," ");
 
 namespace tests {
 

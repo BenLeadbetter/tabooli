@@ -13,6 +13,7 @@ SCENARIO("visitor")
     using combinator = tabooli::combinator<std::string>;
     using intersect = tabooli::intersect<std::string>;
     using unite = tabooli::unite<std::string>;
+    using negate = tabooli::negate<std::string>;
     
     class visitor : public tabooli::visitor<std::string>
     {
@@ -23,6 +24,8 @@ SCENARIO("visitor")
         void pop_intersect() override { ss << ")"; }
         void push_unite() override { ss << "or("; }
         void pop_unite() override { ss << ")"; }
+        void push_negate() override { ss << "not("; }
+        void pop_negate() override { ss << ")"; }
     private: 
         std::stringstream ss;
     };
@@ -43,7 +46,7 @@ SCENARIO("visitor")
         }
     }
 
-    GIVEN("composed raw data")
+    GIVEN("intersected data")
     {
         combinator composite = intersect{"one", "two"};
 
@@ -55,6 +58,38 @@ SCENARIO("visitor")
             THEN("data parsed correctly")
             {
                 CHECK(v.str() == "and(onetwo)");
+            }
+        }
+    }
+
+    GIVEN("united data")
+    {
+        combinator composite = unite{"one", "two"};
+
+        WHEN("visit")
+        { 
+            visitor v;
+            tabooli::visit(v, composite);
+            
+            THEN("data parsed correctly")
+            {
+                CHECK(v.str() == "or(onetwo)");
+            }
+        }
+    }
+    
+    GIVEN("negated data")
+    {
+        combinator negated = negate{"one"};
+        
+        WHEN("visit")
+        {
+            visitor v;
+            tabooli::visit(v, negated);
+            
+            THEN("data parsed correctly")
+            {
+                CHECK(v.str() == "not(one)");
             }
         }
     }
