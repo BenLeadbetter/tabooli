@@ -117,9 +117,9 @@ std::ostream& operator<<(std::ostream& os, const unite<D>& o)
 }
 
 template<typename D>
-std::ostream& operator<<(std::ostream& os, const negate<D>& n)
+std::ostream& operator<<(std::ostream& os, const detail::unary_operator<D>& n)
 {
-    os << detail::negate_prefix<D>() << "{" << *n.data << "}";
+    os << detail::negate_prefix<D>() << "{" << n.data() << "}";
     return os;
 }
 

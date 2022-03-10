@@ -2,6 +2,7 @@ find_package(Catch2 REQUIRED)
 
 set(TABOOLI_TEST_SOURCE
     main.cpp
+    logical_operators.cpp
     ostream_operators.cpp
     visitor.cpp
 )

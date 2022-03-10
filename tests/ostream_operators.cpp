@@ -62,13 +62,6 @@ SCENARIO("ostream operators")
             }
         }
     }
-    
-    GIVEN("combinator with data which doesn't have ostream operators")
-    {
-        struct no_ostream{};
-        using combinator = tabooli::combinator<no_ostream>;
-        combinator comb = tabooli::intersect<no_ostream>{{}, {}};
-    }
 }
 
 }

@@ -29,7 +29,7 @@ void visit(V&& v, const combinator<D>& c)
             v.push_unite();
             for (const auto& operand : operands) 
             {
-                const auto& c = combinator{operand};
+                const auto& c = combinator<D>{operand};
                 tabooli::visit(v, operand);
             }
             v.pop_unite();
@@ -38,7 +38,7 @@ void visit(V&& v, const combinator<D>& c)
             v.push_intersect();
             for (const auto& operand : operands) 
             {
-                const auto& c = combinator{operand};
+                const auto& c = combinator<D>{operand};
                 tabooli::visit(v, operand);
             }
             v.pop_intersect();
@@ -46,7 +46,7 @@ void visit(V&& v, const combinator<D>& c)
         [&v](const negate<D>& n)
         {
             v.push_negate();
-            tabooli::visit(v, *n.data);
+            tabooli::visit(v, n.data());
             v.pop_negate();
         },
         [](auto){}
