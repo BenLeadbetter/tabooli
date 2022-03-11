@@ -1,21 +1,20 @@
 #pragma once
 
-#include <vector>
 #include <initializer_list>
+#include <type_traits>
 
 namespace tabooli::detail {
-    
-template<typename D>
+
+template<typename D, template<typename> typename C>
 class nary_operator 
 {
 public:
-    
-    using const_iterator = typename std::vector<D>::const_iterator;
-    using value_type = typename std::vector<D>::value_type;
-    using size_type = typename std::vector<D>::size_type;
-    using distance_type = typename std::vector<D>::difference_type;
-    using const_reference = typename std::vector<D>::const_reference;
-    using const_pointer = typename std::vector<D>::const_pointer;
+    using const_iterator = typename C<D>::const_iterator;
+    using value_type = typename C<D>::value_type;
+    using size_type = typename C<D>::size_type;
+    using distance_type = typename C<D>::difference_type;
+    using const_reference = typename C<D>::const_reference;
+    using const_pointer = typename C<D>::const_pointer;
 
     nary_operator() = default;
     nary_operator(const nary_operator&) = default;
@@ -36,7 +35,7 @@ public:
     template<typename T>
     void append(T&& val)
     {
-        if constexpr (std::is_base_of_v<nary_operator<D>, T>)
+        if constexpr (std::is_base_of_v<nary_operator<D, C>, T>)
         {
             m_data.insert(m_data.end(), val.m_data.begin(), val.m_data.end());
         }
@@ -49,7 +48,7 @@ public:
     template<typename T>
     void prepend(T&& val)
     {
-        if constexpr (std::is_base_of_v<nary_operator<D>, T>)
+        if constexpr (std::is_base_of_v<nary_operator<D, C>, T>)
         {
             m_data.insert(m_data.begin(), val.m_data.begin(), val.m_data.end());
         }
@@ -60,7 +59,7 @@ public:
     }
     
 private:
-    std::vector<D> m_data;
+    C<D> m_data;
 };
 
 }

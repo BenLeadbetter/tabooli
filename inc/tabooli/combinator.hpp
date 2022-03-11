@@ -2,6 +2,7 @@
 
 #include <tabooli/detail/unary_operator.hpp>
 #include <tabooli/detail/nary_operator.hpp>
+#include <tabooli/detail/vector.hpp>
 
 #include <variant>
 
@@ -23,15 +24,15 @@ struct  combinator final : public std::variant<intersect<D>, unite<D>, negate<D>
 };
 
 template<typename D>
-struct intersect final : public detail::nary_operator<combinator<D>>
+struct intersect final : public detail::nary_operator<combinator<D>, detail::vector>
 {
-    using detail::nary_operator<combinator<D>>::nary_operator;
+    using detail::nary_operator<combinator<D>, detail::vector>::nary_operator;
 };
 
 template<typename D>
-struct unite final : public detail::nary_operator<combinator<D>>
+struct unite final : public detail::nary_operator<combinator<D>, detail::vector>
 {
-    using detail::nary_operator<combinator<D>>::nary_operator;
+    using detail::nary_operator<combinator<D>, detail::vector>::nary_operator;
 };
 
 template<typename D>
