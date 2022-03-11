@@ -12,14 +12,14 @@ template<typename D> struct unite;
 template<typename D> struct negate;
 
 template<typename D> 
-struct  combinator final : public std::variant<std::monostate, intersect<D>, unite<D>, negate<D>, D>
+struct  combinator final : public std::variant<intersect<D>, unite<D>, negate<D>, D>
 {
     using intersect = intersect<D>;
     using unite = unite<D>;
     using negate = negate<D>;
     using data = D;
 
-    using std::variant<std::monostate, intersect, unite, negate, D>::variant;
+    using std::variant<intersect, unite, negate, D>::variant;
 };
 
 template<typename D>

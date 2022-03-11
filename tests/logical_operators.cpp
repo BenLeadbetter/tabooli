@@ -21,11 +21,11 @@ SCENARIO("logical operators")
         
         WHEN("combine raw data with pipe operator")
         {
-            auto combined = data | "kate mcaffrey";
+            auto combined = data | std::string{"kate mcaffrey"};
             
-            THEN("return type is an intersect")
+            THEN("return type is a unite")
             {
-                CHECK(combined == intersect{"noise", "kat mcaffrey"});
+                CHECK(combined == unite{"noise", "kate mcaffrey"});
             }
         }
     }

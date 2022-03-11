@@ -5,8 +5,6 @@
 #include <sstream>
 #include <string>
 
-TABOOLI_CUSTOM_PREFIX(tabooli::combinator<std::string>,"and","or","not"," ");
-
 namespace tests {
 
 SCENARIO("ostream operators")
@@ -42,7 +40,7 @@ SCENARIO("ostream operators")
             
             THEN("the data is written as a bracketed list with intersect prefix")
             {
-                CHECK(os.str() == "and{benga skream mala}");
+                CHECK(os.str() == "intersect{benga,skream,mala}");
             }
         }
     }
@@ -58,7 +56,7 @@ SCENARIO("ostream operators")
             
             THEN("the data is written as a bracketed list with unite prefix")
             {
-                CHECK(os.str() == "or{joker pinch shackleton}");
+                CHECK(os.str() == "unite{joker,pinch,shackleton}");
             }
         }
     }

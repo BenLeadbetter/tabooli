@@ -19,6 +19,8 @@ public:
 
     unary_operator& operator=(const unary_operator& other) { m_d = std::make_unique<D>(*other.m_d); }
     unary_operator& operator=(unary_operator&&) = default;
+    
+    bool operator==(const unary_operator& other) const { return m_d == other.m_d; }
 
     const D& data() const { return *m_d; }
 
